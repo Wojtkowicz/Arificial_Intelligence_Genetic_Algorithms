@@ -5,8 +5,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        GeneticAlgorithm g = new GeneticAlgorithm();
-
+        //GeneticAlgorithm g = new GeneticAlgorithm();
+        /*
         ArrayList<Chromosome> population =  g.populationGeneration(10);
 
         System.out.println(population.get(0).getGenes());
@@ -20,5 +20,17 @@ public class Main {
         System.out.println("------------------------");
         System.out.println(population.get(0).getGenes());
         System.out.println(population.get(1).getGenes());
+
+         */
+        //g.algorithm(20,500, 0.001f);
+
+        //A
+        //(i)
+        GeneticAlgorithmImplementationA questionOne = new GeneticAlgorithmImplementationA();
+        //questionOne.algorithm(20, 500, 0.001f);
+
+        //(ii)
+        GeneticAlgorithmImplementationB questionTwo = new GeneticAlgorithmImplementationB();
+        questionTwo.algorithm(20, 500, 0.001f);
     }
 }
