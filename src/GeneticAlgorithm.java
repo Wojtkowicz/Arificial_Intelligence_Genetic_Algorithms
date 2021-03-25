@@ -36,6 +36,7 @@ abstract class GeneticAlgorithm {
         }
         return total;
     }
+
     public ArrayList<Chromosome> onePointCrossOver(ArrayList<Chromosome> chromosomes, int crossOverPoint){
         ArrayList<Character> parent1 = new ArrayList<>(chromosomes.get(0).getGenes());
         ArrayList<Character> parent2 = new ArrayList<>(chromosomes.get(1).getGenes());
@@ -96,6 +97,8 @@ abstract class GeneticAlgorithm {
 
     public void algorithm(int generationSize, int numGenerations, float mutationChancePercentage){
         ArrayList<Chromosome> generationN = populationGeneration(generationSize);
+        //generationN.remove(0);
+        //generationN.add(new Chromosome(new ArrayList<>(List.of('0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'))));
         ArrayList<Chromosome> generationN1 = new ArrayList<>();
         for(int i =0; i < numGenerations; i++) {
             int averageFitness = averageFitnessOfPopulation(generationN);

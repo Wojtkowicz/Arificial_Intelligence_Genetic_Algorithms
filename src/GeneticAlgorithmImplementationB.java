@@ -19,10 +19,10 @@ public class GeneticAlgorithmImplementationB extends GeneticAlgorithm{
 
     public  GeneticAlgorithmImplementationB(){
         genes = new ArrayList<>();
-        createTargetGene();
+        createTargetGenes();
     }
 
-    private void createTargetGene(){
+    private void createTargetGenes(){
         //Random gene to match
         for (int i = 0; i < 20; i++) {
             genes.add((char)round((Math.random() * 1) + 48));

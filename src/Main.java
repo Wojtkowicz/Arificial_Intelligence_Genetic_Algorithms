@@ -26,11 +26,14 @@ public class Main {
 
         //A
         //(i)
-        GeneticAlgorithmImplementationA questionOne = new GeneticAlgorithmImplementationA();
+        //GeneticAlgorithmImplementationA questionOne = new GeneticAlgorithmImplementationA();
         //questionOne.algorithm(20, 500, 0.001f);
 
         //(ii)
-        GeneticAlgorithmImplementationB questionTwo = new GeneticAlgorithmImplementationB();
-        questionTwo.algorithm(20, 500, 0.001f);
+        //GeneticAlgorithmImplementationB questionTwo = new GeneticAlgorithmImplementationB();
+        //questionTwo.algorithm(20, 500, 0.001f);
+
+        //GeneticAlgorithmImplementationC questionThree = new GeneticAlgorithmImplementationC();
+        //questionThree.algorithm(20, 500, 0.001f);
     }
 }
