@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class Main {
 
@@ -32,8 +31,11 @@ public class Main {
         //questionAThree.algorithm(20, 500, 0.001f, 20);
 
 
-        GeneticAlgorithmImplementationD questionB = new GeneticAlgorithmImplementationD(103);
-        questionB.algorithm(20, 500, 0.001f, 10);
+        GeneticAlgorithmImplementationD questionBOne = new GeneticAlgorithmImplementationD(103);
+        questionBOne.algorithm(1000, 500, 0.01f, 10);
+
+        GeneticAlgorithmImplementationD questionBTwo = new GeneticAlgorithmImplementationD(156);
+        questionBTwo.algorithm(1000, 500, 0.01f, 10);
 
 
     }

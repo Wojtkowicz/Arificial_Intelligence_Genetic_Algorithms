@@ -48,7 +48,7 @@ public class Knapsack {
     public int getFitness(){
         int total = 0;
         for (Item c : items) {
-            total += c.getFitness();
+            total += c.getValue();
         }
         return total;
     }

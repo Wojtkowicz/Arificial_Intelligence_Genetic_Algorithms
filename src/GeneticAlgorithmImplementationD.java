@@ -54,9 +54,24 @@ public class GeneticAlgorithmImplementationD extends GeneticAlgorithm{
         for (Chromosome c : chromosomes) {
                 Knapsack k = chromosomeKnapsack(c.getGenes());
                 total += k.getFitness();
+                c.setFitness(k.getFitness());
             }
 
         return total;
+    }
+
+    public Knapsack highestValueOfGeneration(ArrayList<Chromosome> chromosomes){
+        Knapsack maxValueKnapsack = new Knapsack(maxSize);
+        int max = 0;
+
+        for (Chromosome c : chromosomes) {
+            Knapsack k = chromosomeKnapsack(c.getGenes());
+            if(k.getTotalValue() > max) {
+                maxValueKnapsack = k;
+            }
+        }
+
+        return maxValueKnapsack;
     }
 
     public void algorithm(int generationSize, int numGenerations, float mutationChancePercentage, int geneNum){
@@ -65,7 +80,13 @@ public class GeneticAlgorithmImplementationD extends GeneticAlgorithm{
         for(int i =0; i < numGenerations; i++) {
             int averageFitness = averageFitnessOfPopulation(generationN);
             int totalFitness = totalFitness(generationN);
-            System.out.println("Generation "+i+ " has average fitness of: " + averageFitness);
+            Knapsack k = highestValueOfGeneration(generationN);
+            System.out.println("Generation "+(i+1)+ " has a highest value of: " + k.getTotalValue() + ", with a weight of: " + k.getTotalWeight());
+            ArrayList<String> itemValues = new ArrayList<>();
+            for (Item item : k.getItems()) {
+                itemValues.add(String.valueOf(item.getValue()));
+            }
+            System.out.println("Contents: " + itemValues);
             while (generationN1.size() != generationN.size()) {
                 //Do selection to find two chromosomes
                 Chromosome parent1 = rouletteWheelSelectOne(generationN, totalFitness);
@@ -75,8 +96,16 @@ public class GeneticAlgorithmImplementationD extends GeneticAlgorithm{
                 //Try mutation on each child
                 children.set(0, mutation(children.get(0), mutationChancePercentage));
                 children.set(1,mutation(children.get(1), mutationChancePercentage));
-                //add children to next generation
-                generationN1.addAll(children);
+
+                if(chromosomeKnapsack(children.get(0).getGenes()).getTotalWeight() <= maxSize){
+                    //add children to next generation
+                    generationN1.add(children.get(0));
+                }
+                if(chromosomeKnapsack(children.get(1).getGenes()).getTotalWeight() <= maxSize && generationN1.size() != generationN.size()){
+                    //add children to next generation
+                    generationN1.add(children.get(1));
+                }
+
             }
             generationN = new ArrayList<>(generationN1);
             generationN1.clear();

@@ -103,7 +103,7 @@ abstract class GeneticAlgorithm {
         for(int i =0; i < numGenerations; i++) {
             int averageFitness = averageFitnessOfPopulation(generationN);
             int totalFitness = totalFitness(generationN);
-            System.out.println("Generation "+i+ " has average fitness of: " + averageFitness);
+            System.out.println("Generation "+i+ " has a highest value of: " + averageFitness);
             while (generationN1.size() != generationN.size()) {
                 //Do selection to find two chromosomes
                 Chromosome parent1 = rouletteWheelSelectOne(generationN, totalFitness);
