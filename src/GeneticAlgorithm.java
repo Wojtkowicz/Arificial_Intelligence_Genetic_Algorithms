@@ -9,18 +9,18 @@ import static java.lang.Math.round;
 
 abstract class GeneticAlgorithm {
 
-    public Chromosome chromosomeGeneration() {
+    public Chromosome chromosomeGeneration(int num) {
         ArrayList<Character> genes = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < num; i++) {
             genes.add((char)round((Math.random() * 1) + 48));
         }
         return new Chromosome(genes);
     }
 
-    public ArrayList<Chromosome> populationGeneration(int size){
+    public ArrayList<Chromosome> populationGeneration(int size, int geneNum){
         ArrayList<Chromosome> chromosomes = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            chromosomes.add(chromosomeGeneration());
+            chromosomes.add(chromosomeGeneration(geneNum));
         }
         return chromosomes;
     }
@@ -95,8 +95,8 @@ abstract class GeneticAlgorithm {
         return chosenChromosome;
     }
 
-    public void algorithm(int generationSize, int numGenerations, float mutationChancePercentage){
-        ArrayList<Chromosome> generationN = populationGeneration(generationSize);
+    public void algorithm(int generationSize, int numGenerations, float mutationChancePercentage, int geneNum){
+        ArrayList<Chromosome> generationN = populationGeneration(generationSize, geneNum);
         //generationN.remove(0);
         //generationN.add(new Chromosome(new ArrayList<>(List.of('0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'))));
         ArrayList<Chromosome> generationN1 = new ArrayList<>();

@@ -1,26 +1,66 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GeneticAlgorithmImplementationC extends GeneticAlgorithm {
+import static java.lang.Math.round;
+
+public class GeneticAlgorithmImplementationD extends GeneticAlgorithm{
+
+    private final int maxSize;
+
+    public GeneticAlgorithmImplementationD(int maxSize) {
+        this.maxSize = maxSize;
+    }
+
+    public Chromosome chromosomeGeneration(int num) {
+        ArrayList<Character> genes = new ArrayList<>();
+        do{
+            genes = new ArrayList<>();
+            for (int i = 0; i < num; i++) {
+                genes.add((char)round((Math.random() * 1) + 48));
+            }
+        }while (chromosomeKnapsack(genes).getTotalWeight() > maxSize);
+
+        return new Chromosome(genes);
+    }
 
     @Override
     int calculateFitnessOfChromosome(Chromosome chromosome) {
-        int fitness = Collections.frequency(chromosome.getGenes(), '1');
-        chromosome.setFitness(fitness);
-        if(fitness ==  0){
-            int deceptiveFitness = 2*chromosome.getGenes().size();
-            chromosome.setFitness(deceptiveFitness);
-            return deceptiveFitness;
-        }
-        return fitness;
+        return 0;
     }
-    @Override
+
+    public Knapsack chromosomeKnapsack(ArrayList<Character> genes){
+        Knapsack k = new Knapsack(maxSize);
+        for(int i = 0; i < genes.size(); i++){
+            if(genes.get(i).equals('1')){
+                k.addItem(Main.allItems.get(i));
+            }
+        }
+            return k;
+        }
+
+    public ArrayList<Chromosome> populationGeneration(int size, int geneNum){
+        ArrayList<Chromosome> chromosomes = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            chromosomes.add(chromosomeGeneration(geneNum));
+        }
+        return chromosomes;
+    }
+
+    public int averageFitnessOfPopulation(ArrayList<Chromosome> chromosomes){ return ((totalFitness(chromosomes))/chromosomes.size()); }
+
+    public int totalFitness(ArrayList<Chromosome> chromosomes){
+        int total = 0;
+        for (Chromosome c : chromosomes) {
+                Knapsack k = chromosomeKnapsack(c.getGenes());
+                total += k.getFitness();
+            }
+
+        return total;
+    }
+
     public void algorithm(int generationSize, int numGenerations, float mutationChancePercentage, int geneNum){
         ArrayList<Chromosome> generationN = populationGeneration(generationSize, geneNum);
-        generationN.remove(0);
-        generationN.add(new Chromosome(new ArrayList<>(List.of('0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'))));
         ArrayList<Chromosome> generationN1 = new ArrayList<>();
         for(int i =0; i < numGenerations; i++) {
             int averageFitness = averageFitnessOfPopulation(generationN);
